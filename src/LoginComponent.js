@@ -3,61 +3,61 @@ import React,{Component} from 'react';
 // import { Link } from 'react-router';
 import { Link } from 'react-router-dom';
 import Facedetect from './Facedetect';
+import { Route , withRouter} from 'react-router-dom';
 
 
 class LoginComponent extends Component {
   constructor(props){
     super(props)
-    this.creds = {
+    this.state = {
       email:"test@test.com",
       password:"password",
     }
   }
+  onChange = (event) =>{
+    this.setState ({
+      email : event.target.value,
+    })
+  }
 
+  onChangepass = (event) =>{
+    this.setState({
+      password:event.target.value
+    })
+  }
+
+  onSubmit = (event) =>{
+    event.preventDefault();
+    const { email, password } = this.state;
+    console.log(this.state.email);
+    if (email === "test@test.com" && password === "password") {
+      alert("good creds");
+      this.props.history.push('/Facedetect');
+    }
+      else{
+        alert ("bad Creds");
+      }
+  }
   
 
-  // onSubmit = (event) =>{
-  //   event.preventDefault();
-
-  // const { username, password } = this.state;
-  // const { history } = this.props;
-
-  // this.setState({ error: false });
-
-  // if (!(username === 'george' && password === 'foreman')) {
-  //   return this.setState({ error: true });
-  // }
-
-  // // store.set('loggedIn', true);
-  // history.push('/users');
-
-// }
-
-
-
-    // const { email, password } = this.state;
-    // if (email === "test@test.com" && password === "password") {
-
-    
-  
   render(){
     return(
       <div className="login">
         <div className="logincontent">
           <h1>Welcome</h1>
           <p>Please Login To Continue</p>
-          <form onSubmit = {this.onSubmit}>
+          <form onSubmit={this.onSubmit}>
             <div class="form-control">
               <label class="login-form">Enter Your registered Email Address</label>
-              <input class="input-form"type="text" placeholder="Email Address" value="" required />
+              <input class="input-form" type="text"  onChange = {this.onChange} placeholder="Email Address"   required />
             </div>
             <div>
             <label class="login-form">Enter Your Password</label>
-            <input class="input-form"type="password" placeholder="Password" value="" required />
+            <input class="input-form"type="password" onChange ={this.onChangepass} placeholder="Password"  required />
             </div>
-            <Link to = "/Facedetect">
-            <button class="buttonclass" value="Login">Login</button> 
-            </Link>
+             {/* <Link to = "/Facedetect">  */}
+            <button class="buttonclass" onClick = {this.onSubmit}value="Login">Login</button> 
+            {/* </Link> */}
           </form>
          
         </div>
@@ -66,6 +66,6 @@ class LoginComponent extends Component {
   }
 
 }
-export default LoginComponent;
+export default withRouter(LoginComponent);
 
 
