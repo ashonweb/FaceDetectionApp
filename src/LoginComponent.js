@@ -30,12 +30,22 @@ class LoginComponent extends Component {
     event.preventDefault();
     const { email, password } = this.state;
     console.log(this.state.email);
+    if(email === '' && password === ''){
+      alert("Please enter valid creds");
+    }
+    else  if(email === ''){
+      alert("Please enter the email");
+    }
+    else if(password === ''){
+      alert("please enter the password")
+    }
+
     if (email === "test@test.com" && password === "password") {
       alert("good creds");
       this.props.history.push('/Facedetect');
     }
       else{
-        alert ("bad Creds");
+        alert("please enter valid creds")
       }
   }
   
