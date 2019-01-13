@@ -24,7 +24,10 @@ class App extends Component {
         )} />
         <Route path='/Facedetect' component={Facedetect} />              
       </Switch>            
-      </div>      
+      </div>     
+      
+      
+      
     );
   }
 }

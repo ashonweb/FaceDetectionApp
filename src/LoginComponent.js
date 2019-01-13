@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 // import { Link } from 'react-router';
 import { Link } from 'react-router-dom';
 import Facedetect from './Facedetect';
+import Faceapi from './Faceapi';
 import { Route , withRouter} from 'react-router-dom';
 
 
@@ -69,7 +70,7 @@ class LoginComponent extends Component {
             <button class="buttonclass" onClick = {this.onSubmit}value="Login">Login</button> 
             {/* </Link> */}
           </form>
-         
+          
         </div>
       </div>
     )
