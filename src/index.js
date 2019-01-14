@@ -6,6 +6,8 @@ import App from './App';
 import { Route, IndexRoute } from 'react-router';
 import Facedetect from './Facedetect';
 import * as serviceWorker from './serviceWorker';
+import logo from './logo.svg';
+
 
 // ReactDOM.render(<Router history={browserHistory} routes={routes} />,<App />, document.getElementById('root'));
 

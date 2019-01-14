@@ -13,6 +13,7 @@ class LoginComponent extends Component {
     this.state = {
       email:"test@test.com",
       password:"password",
+      isLoggedIn:false,
     }
   }
   onChange = (event) =>{
@@ -28,6 +29,7 @@ class LoginComponent extends Component {
   }
 
   onSubmit = (event) =>{
+   
     event.preventDefault();
     const { email, password } = this.state;
     console.log(this.state.email);
@@ -43,7 +45,10 @@ class LoginComponent extends Component {
 
     if (email === "test@test.com" && password === "password") {
       alert("good creds");
+     
+     
       this.props.history.push('/Facedetect');
+      
     }
       else{
         alert("please enter valid creds")
