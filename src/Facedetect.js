@@ -126,16 +126,16 @@ handleImageUrlUpload = () => {
 
   render() {
     const { imageOutput,age,gender,lips,glasses,race,loading} = this.state;
-//     const {isLoggedIn} = this.props;
-//     if (!isLoggedIn) {
-//       return (
-//         <Redirect
-//           to={{
-//             pathname: "/"            
-//           }}
-//         />
-//       )
-// }
+    const {isLoggedIn} = this.props;
+    if (!isLoggedIn) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/"            
+          }}
+        />
+      )
+}
     
         
     return (
@@ -150,28 +150,28 @@ handleImageUrlUpload = () => {
                   <input type='file' id="imageUpload" multiple=" false " accept="image/*" onChange={this.upload1} />
                 </div>
               </div>
-              <div>
-              <label class="imageUpload" htmlFor="imageUpload" onChange={this.upload1}> <FontAwesomeIcon   icon={faUpload}  /> &nbsp;&nbsp; upload Image</label>
-              <input
-                className=" imageUpload1"
-                type="text"
-                onChange={this.handleImageUrl}
-                placeholder="Image URL"
+              <div className ="imageuploaddiv  ">
+                {/* <label class="imageUpload" htmlFor="imageUpload" onChange={this.upload1}> <FontAwesomeIcon   icon={faUpload}  /> &nbsp;&nbsp; upload Image</label> */}
+                {/* <input
+                  className=" imageUpload1"
+                  type="text"
+                  onChange={this.handleImageUrl}
+                  placeholder="Image URL"
 
-              />
-              <button
-                className="img-url-submit"
-                onClick={this.handleImageUrlUpload }
-                
-              >
-                Go
-            </button>
-            {loading ? <Spinner /> : null}
-            </div>
-            
-            </div>
-            <div>
-            
+                />
+                <button
+                  className="img-url-submit"
+                  onClick={this.handleImageUrlUpload }
+                  
+                >
+                  Go
+                </button> */}
+                <label class="imageUpload" htmlFor="imageUpload" onChange={this.upload1}> <FontAwesomeIcon icon={faUpload} /> &nbsp;&nbsp; upload Image</label>
+                <input type="text" className="img-url-class"  onChange={this.handleImageUrl}
+                  placeholder="Image URL"/>
+                <button className="img-url-submit" onClick={this.handleImageUrlUpload }>Go</button>
+                {loading ? <Spinner /> : null}
+              </div>
             </div>
           </Col>
           <Col className="columnsecond" md={6}>

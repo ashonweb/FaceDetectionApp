@@ -14,6 +14,7 @@ class LoginComponent extends Component {
       email:"test@test.com",
       password:"password",
       isLoggedIn:false,
+      incorrectcreds:false,
     }
   }
   onChange = (event) =>{
@@ -28,33 +29,57 @@ class LoginComponent extends Component {
     })
   }
 
-  onSubmit = (event) =>{
+  // onSubmit = (event) =>{
    
+  //   event.preventDefault();
+  //   const { email, password } = this.state;
+  //   console.log(this.state.email);
+  //   if(email === '' && password === ''){
+  //     alert("Please enter valid creds");
+  //   }
+  //   else  if(email === ''){
+  //     alert("Please enter the email");
+  //   }
+  //   else if(password === ''){
+  //     alert("please enter the password")
+  //   }
+
+  //   if (email === "test@test.com" && password === "password") {
+  //     alert("good creds");
+     
+     
+  //     this.props.history.push('/Facedetect');
+      
+  //   }
+  //     else{
+  //       alert("please enter valid creds")
+  //     }
+  // }
+  
+  onSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
     console.log(this.state.email);
-    if(email === '' && password === ''){
-      alert("Please enter valid creds");
-    }
-    else  if(email === ''){
-      alert("Please enter the email");
-    }
-    else if(password === ''){
-      alert("please enter the password")
-    }
-
     if (email === "test@test.com" && password === "password") {
+      this.props.updateIsLoggedIn(true);
       alert("good creds");
-     
-     
       this.props.history.push('/Facedetect');
-      
+      console.log(this.props.isLoggedIn);      
     }
-      else{
-        alert("please enter valid creds")
-      }
+    else {
+      this.setState({
+        incorrectcreds:true,
+      })
+      alert("please enter valid creds")
+    }
   }
   
+
+
+
+
+
+
 
   render(){
     return(
