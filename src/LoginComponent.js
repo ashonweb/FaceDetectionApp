@@ -62,7 +62,7 @@ class LoginComponent extends Component {
     console.log(this.state.email);
     if (email === "test@test.com" && password === "password") {
       this.props.updateIsLoggedIn(true);
-      alert("good creds");
+      // alert("good creds");
       this.props.history.push('/Facedetect');
       console.log(this.props.isLoggedIn);      
     }

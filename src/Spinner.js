@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
     const Spinner = () => (
-      <div class="ggg">
+      <div class="loadclass">
         <FontAwesomeIcon icon={faSpinner} /> Loading...
       </div>
     );

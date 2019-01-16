@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 // import { detectFace } from 'Faceapi.js';
  import Faceapi from './Faceapi';
 //  import spinner from './logo.svg';
+import Modal from 'react-awesome-modal';
  import Spinner from './Spinner';
  import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
  import { library } from '@fortawesome/fontawesome-svg-core';
@@ -30,6 +31,7 @@ constructor(props){
     imageuploaded : '',
     imageurl:'',
     loading:false,
+    visible:false,
     
   }
 
@@ -58,6 +60,12 @@ handleImageUrlUpload = () => {
     this.props.history.push('/');
 
   }
+  closeModal() {
+    this.setState({
+        visible : false
+    });
+}
+
   upload1 = (event) =>{
     var  file = event.target.files[0];
     var reader = new FileReader();
@@ -80,31 +88,41 @@ handleImageUrlUpload = () => {
     this.postRequest('https://api.kairos.com/detect', {image: image})
       .then(data => data.json()) // Result from the `response.json()` call
       .then((data) => {
-        console.log(data.images[0].faces[0].attributes);
-        let race =''
-        let races = [
-          {name: 'asian', val: data.images[0].faces[0].attributes.asian},
-          {name: 'black', val: data.images[0].faces[0].attributes.black},
-          {name: 'hispanic', val: data.images[0].faces[0].attributes.hispanic},
-          {name: 'white', val: data.images[0].faces[0].attributes.white},
-          {name: 'other', val: data.images[0].faces[0].attributes.other},
-        ]
-        races.sort((a, b) => b.val - a.val);
-        race = races[0].name;
-       
-        this.setState({
-          imageOutput: data.images[0].faces[0].attributes,
-          age : data.images[0].faces[0].attributes.age,
-          gender : data.images[0].faces[0].attributes.gender.type,
+        // console.log(data.images[0].faces[0].attributes);
+        // console.log(data.Errors[0].Message);
+        if(data.Errors) {
+          // handle error
+          console.log(data.Errors[0].Message);
+          // alert("No faces were found");
+          this.setState({
+            visible:true,
+            ErrorMessage : data.Errors[0].Message,
+            loading: false,
+          })
 
-          glasses : data.images[0].faces[0].attributes.glasses,
-
-          lips : data.images[0].faces[0].attributes.lips,
-
-          race:race,
+        } else {
+          let race =''
+          let races = [
+            {name: 'asian', val: data.images[0].faces[0].attributes.asian},
+            {name: 'black', val: data.images[0].faces[0].attributes.black},
+            {name: 'hispanic', val: data.images[0].faces[0].attributes.hispanic},
+            {name: 'white', val: data.images[0].faces[0].attributes.white},
+            {name: 'other', val: data.images[0].faces[0].attributes.other},
+          ]
+          races.sort((a, b) => b.val - a.val);
+          race = races[0].name;
           
-          
-        })
+          this.setState({
+            imageOutput: data.images[0].faces[0].attributes,
+            age : data.images[0].faces[0].attributes.age,
+            gender : data.images[0].faces[0].attributes.gender.type,
+            glasses : data.images[0].faces[0].attributes.glasses,
+            lips : data.images[0].faces[0].attributes.lips,
+            race: race,                   
+            loading: false
+          })
+        }
+        console.log(data);            
       })
       .catch(error => console.error(error))
     })
@@ -135,7 +153,7 @@ handleImageUrlUpload = () => {
           }}
         />
       )
-}
+    }
     
         
     return (
@@ -205,7 +223,16 @@ handleImageUrlUpload = () => {
           </Col>
 
       </Row>
-      
+        <Modal  visible={this.state.visible} width="400" height="200" margin-top="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+          <div >
+            <p class ="errorclass">No Faces were detected</p>
+            <div>
+            <input class = "okbutton  "type="button" value="OK" onClick={() => this.closeModal()} />
+
+            </div>
+          </div>
+        </Modal>
+
       <div class="wrap">
       <button class="facebuttonclass" onClick={this.logout} value="Logout" >Logout</button>
     </div>
