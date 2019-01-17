@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import './index.css';
 import App from './App';
 import { Route, IndexRoute } from 'react-router';
@@ -14,9 +14,9 @@ import logo from './logo.svg';
 
 ReactDOM.render(
 
-<BrowserRouter>
+<HashRouter>
     <App />
-  </BrowserRouter>
+  </HashRouter>
 , document.getElementById('root'));
 
 
