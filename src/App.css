@@ -1,7 +1,7 @@
 .App {
   /* background-color: crimson; */
   width: 77%;
-  /* height: 100vh; */
+  height: 100vh;
   margin: 0px;
   padding: 0px;
   background-image: -webkit-linear-gradient(top, rgba(255,0,0,0), rgba(220, 20, 60));
