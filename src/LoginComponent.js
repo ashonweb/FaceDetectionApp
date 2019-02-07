@@ -83,7 +83,8 @@ class LoginComponent extends Component {
 
   render(){
     return(
-      <div className="login">
+      
+      <div className=" login ">
         <div className="logincontent">
           <h1>Welcome</h1>
           <p>Please Login To Continue</p>
@@ -103,6 +104,7 @@ class LoginComponent extends Component {
           
         </div>
       </div>
+      
     )
   }
 

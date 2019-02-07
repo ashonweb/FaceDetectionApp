@@ -153,13 +153,10 @@ handleImageUrlUpload = () => {
           }}
         />
       )
-    }
-    
-        
+    }   
     return (
       <div className="completeFace">
-  
-      <Row>
+        <Row>
           <Col className="columnfirst" md={6}>
             <div id="Facedetect">
               <div class="imageperson" >
@@ -168,7 +165,7 @@ handleImageUrlUpload = () => {
                   <input type='file' id="imageUpload" multiple=" false " accept="image/*" onChange={this.upload1} />
                 </div>
               </div>
-              <div className ="imageuploaddiv  ">
+              <div className="imageuploaddiv  ">
                 {/* <label class="imageUpload" htmlFor="imageUpload" onChange={this.upload1}> <FontAwesomeIcon   icon={faUpload}  /> &nbsp;&nbsp; upload Image</label> */}
                 {/* <input
                   className=" imageUpload1"
@@ -185,9 +182,9 @@ handleImageUrlUpload = () => {
                   Go
                 </button> */}
                 <label class="imageUpload" htmlFor="imageUpload" onChange={this.upload1}> <FontAwesomeIcon icon={faUpload} /> &nbsp;&nbsp; upload Image</label>
-                <input type="text" className="img-url-class"  onChange={this.handleImageUrl}
-                  placeholder="Image URL"/>
-                <button className="img-url-submit" onClick={this.handleImageUrlUpload }>Go</button>
+                <input type="text" className="img-url-class" onChange={this.handleImageUrl}
+                  placeholder="Image URL" />
+                <button className="img-url-submit" onClick={this.handleImageUrlUpload}>Go</button>
                 {loading ? <Spinner /> : null}
               </div>
             </div>
@@ -200,43 +197,40 @@ handleImageUrlUpload = () => {
               </div>
             </div>
             <div className="attributes2">
-            <FontAwesomeIcon icon={faTransgender} /> &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faTransgender} /> &nbsp;&nbsp;
 
               Gender: {gender}
             </div>
             <div className="attributes3">
-            <FontAwesomeIcon icon={faGlobe} /> &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faGlobe} /> &nbsp;&nbsp;
 
               Race: {race}
             </div>
             <div className="attributes4">
-            <FontAwesomeIcon icon={faGlasses} /> &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faGlasses} /> &nbsp;&nbsp;
 
               Glasses:{glasses}
             </div>
             <div className="attributes5">
-            <FontAwesomeIcon icon={faLaugh} /> &nbsp;&nbsp;
+              <FontAwesomeIcon icon={faLaugh} /> &nbsp;&nbsp;
 
               Lips:{lips}
             </div>
-
           </Col>
-
-      </Row>
-        <Modal  visible={this.state.visible} width="400" height="200" margin-top="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
+        </Row>
+        <Modal visible={this.state.visible} width="400" height="200" margin-top="200" effect="fadeInUp" onClickAway={() => this.closeModal()}>
           <div >
-            <p class ="errorclass">No Faces were detected</p>
+            <p class="errorclass">No Faces were detected</p>
             <div>
-            <input class = "okbutton  "type="button" value="OK" onClick={() => this.closeModal()} />
+              <input class="okbutton  " type="button" value="OK" onClick={() => this.closeModal()} />
 
             </div>
           </div>
         </Modal>
-
-      <div class="wrap">
-      <button class="facebuttonclass" onClick={this.logout} value="Logout" >Logout</button>
-    </div>
-    </div>
+        <div class="wrap">
+          <button class="facebuttonclass" onClick={this.logout} value="Logout" >Logout</button>
+        </div>
+      </div>
     );
   }
 }

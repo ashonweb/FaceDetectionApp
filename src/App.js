@@ -26,8 +26,8 @@ class App extends Component {
       <div>
         <Switch>
           <Route exact path='/' render={() => (
-            <div>
-              <div className="App">
+            <div className="App">
+              <div >
                 <header className="head">
                   <h1>Face Detection</h1>
                   <h5>Upload an image to detect information about a face.</h5>
