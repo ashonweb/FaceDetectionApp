@@ -1,10 +1,11 @@
 @media only screen and (max-width: 400px) {
   .App {
    height: -webkit-fill-available;
-   background-image: linear-gradient(to bottom, rgb(237, 76, 91), rgb(167, 12, 34));
+   background-image: linear-gradient(to bottom, rgb(167, 12, 34), rgb(237, 76, 91));
   width:100%;
   margin:auto;
-  padding:auto;    
+  padding:auto;   
+  height: 100vh; 
   }
 
   .head {
@@ -32,5 +33,129 @@
     margin-right: 32px;
     margin-bottom: 30%;
     width:auto;
+}
+.columnfirst{
+  border: 1px solid black;
+  display: inline-block;
+  vertical-align: top;
+    box-sizing: border-box;
+    width: -webkit-fill-available;
+    margin:15px 30px;
+    background-image:linear-gradient(0deg, rgb(140, 65, 211) 0px, rgb(116, 74, 145))
+
+}
+
+.columnsecond{
+  border: 1px solid black;
+  display: inline-block;
+  vertical-align: top;
+    box-sizing: border-box;
+    width: -webkit-fill-available;;
+    margin:30px 30px;
+    background-image:linear-gradient(0deg, rgb(140, 65, 211) 0px, rgb(116, 74, 145))
+}
+#output {
+  
+  height: 368px;
+  width: 250px;
+  margin-left:0px;
+  margin-top: -14px;
+  background-color: aliceblue /* background-image: url(https://cdn.pixabay.com/photo/2013/07/13/12/07/avatar-159236_640.png); */;
+}
+/* .img-url-submit{
+   
+  background-image: linear-gradient(0deg, rgb(167, 12, 34) 0px, rgb(237, 76, 91));
+  margin-left: 0px;
+   height: 41px;
+   width: 43px;
+   border-radius: 3px;
+   color:white;
+} */
+
+.imageuploaddiv {
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-size: 15px;
+  top: 69%;
+  height: 30px;
+  margin-top: 10px;
+  position: absolute;
+}
+
+
+.img-url-class {
+  margin-top: 57px;
+  /* margin-left: 211px; */
+  /* height: 18px; */
+  padding: 10px;
+  width: 187px;
+  text-align: center;
+  margin-left: 28px;
+}
+
+.attributes1 {
+  margin: 50px;
+  padding: 15px;
+  background-image: -webkit-linear-gradient(bottom, rgb(58, 211, 185) 0px,rgb(121, 163, 163) );
+  background-image: linear-gradient(0deg, rgb(58, 211, 185) 0px,rgb(121, 163, 163) );
+  width: auto;
+  /* margin-left: 156px; */
+  border-radius: 5px;
+} 
+
+
+.attributes2{
+  margin:50px;
+  padding:15px;
+  background-image:linear-gradient(0deg,  rgb(211, 55, 55) 0px,rgb(228, 46, 13) );
+  width:auto;
+  /* margin-left:156px; */
+  border-radius:5px;
+}
+.attributes3{
+  margin:50px;
+  padding:15px;
+  background-image:linear-gradient(0deg,  rgb(25, 58, 150) 0px,rgb(156, 142, 240) );
+  width:auto;
+  /* margin-left:156px; */
+  border-radius:5px;
+}
+.attributes4{
+  margin:50px;
+  padding:15px;
+  background-image:linear-gradient(0deg,  rgb(209, 137, 89) 0px,rgba(218, 120, 8, 0.884) );
+  width:auto;
+  /* margin-lef/t:156px; */
+  border-radius:5px;
+}
+.attributes5{
+  margin:50px;
+  padding:15px;
+  background-image:linear-gradient(0deg,  rgb(69, 204, 28) 0px,rgb(127, 194, 121) );
+  width:auto;
+  /* margin-left:156px; */
+  border-radius:5px;
+}
+
+.facebuttonclass{
+  /* position:absolute; */
+  cursor: pointer;
+  height: 40px;
+  width: 150px;  
+  /* background-color:crimson; */
+  border: none;
+  border-radius:3px;
+  color:white;
+  font-size:15px;
+  margin:0px;  /* background-image: linear-gradient(to bottom, rgba(255,0,0,0), rgba(220, 20, 60)); Standard syntax (must be last) */
+
+  /* background-image:linear-gradient(0deg,  rgb(129, 123, 123) 0px,rgb(48, 39, 40) ) */
+  background-image:linear-gradient(0deg, rgb(167, 12, 34) 0px, rgb(237, 76, 91))
+
+}
+.wrap{
+  text-align: center;
+  margin-bottom:15px;
 }
 }
