@@ -1,0 +1,36 @@
+@media only screen and (max-width: 400px) {
+  .App {
+   height: -webkit-fill-available;
+   background-image: linear-gradient(to bottom, rgb(237, 76, 91), rgb(167, 12, 34));
+  width:100%;
+  margin:auto;
+  padding:auto;    
+  }
+
+  .head {
+    text-align: center;
+    padding: 5%;
+}
+
+  .login {
+    left: auto;
+    height: 70%;
+    background-color: black;
+    z-index: 1;
+    border-radius: 20px;
+    width: auto;
+    margin:7px;
+}
+
+.logincontent {
+  color: white;
+    padding: 5px;
+    margin-left: 32px;
+    margin-top: 7%;
+    font-weight: 400;
+    font-size: 16px;
+    margin-right: 32px;
+    margin-bottom: 30%;
+    width:auto;
+}
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './responsive.css';
 import LoginComponent from './LoginComponent';
 import {  Route, Switch } from 'react-router';
 import Facedetect from'./Facedetect';
