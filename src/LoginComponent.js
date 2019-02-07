@@ -13,6 +13,8 @@ class LoginComponent extends Component {
     this.state = {
       email:"test@test.com",
       password:"password",
+      // email : "",
+      // password :"",
       isLoggedIn:false,
       incorrectcreds:false,
     }
@@ -66,12 +68,21 @@ class LoginComponent extends Component {
       this.props.history.push('/Facedetect');
       console.log(this.props.isLoggedIn);      
     }
+    else if (email === "" && password === ""){
+      this.setState({
+        incorrectcreds:true,
+      })
+      alert("please enter valid creds")
+
+    }
     else {
       this.setState({
         incorrectcreds:true,
       })
       alert("please enter valid creds")
     }
+
+    
   }
   
 
