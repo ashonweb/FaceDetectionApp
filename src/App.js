@@ -81,10 +81,10 @@ function Header({ status, mode, onModeChange }) {
   return (
     <header className="header">
       <div className="header-logo">
-        <div className="header-icon">⊕</div>
+        <img src="/favicon.svg" alt="Face Detect" style={{ width: 32, height: 32, borderRadius: 6 }} />
         <div>
           <div className="header-title">Face Detect</div>
-          <div className="header-sub">Biometric Analysis System · face-api.js</div>
+          <div className="header-sub">Biometric Analysis System</div>
         </div>
       </div>
       <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
@@ -205,13 +205,14 @@ function Readout({ result, scanning }) {
 
 // ── Main App ──────────────────────────────────────────────────────────────────
 export default function App() {
-  const canvasRef    = useRef(null);
-  const overlayRef   = useRef(null);
-  const videoRef     = useRef(null);
-  const fileRef      = useRef(null);
-  const animFrameRef = useRef(null);
-  const streamRef    = useRef(null);
-  const lastResultTs = useRef(0);
+  const canvasRef       = useRef(null);
+  const overlayRef      = useRef(null);
+  const videoRef        = useRef(null);
+  const fileRef         = useRef(null);
+  const animFrameRef    = useRef(null);
+  const streamRef       = useRef(null);
+  const lastResultTs    = useRef(0);
+  const webcamActiveRef = useRef(false); // guards against stale async results after stop
 
   const [modelsReady, setModelsReady] = useState(false);
   const [status,      setStatus]      = useState('loading');
@@ -255,10 +256,10 @@ export default function App() {
         .withAgeAndGender()
         .withFaceExpressions();
 
+      if (!webcamActiveRef.current) return; // switched away mid-await
+
       if (det) {
         drawOverlays(ctx, det);
-
-        // throttle state update to ~4fps to avoid flicker
         const now = Date.now();
         if (now - lastResultTs.current > 250) {
           lastResultTs.current = now;
@@ -280,12 +281,15 @@ export default function App() {
       }
     } catch { /* ignore frame errors */ }
 
-    animFrameRef.current = requestAnimationFrame(detectWebcam);
+    if (webcamActiveRef.current) {
+      animFrameRef.current = requestAnimationFrame(detectWebcam);
+    }
   }, []);
 
   const startWebcam = useCallback(async () => {
     setError(null);
     setResult(null);
+    webcamActiveRef.current = true;
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
       streamRef.current = stream;
@@ -298,12 +302,14 @@ export default function App() {
         };
       }
     } catch {
+      webcamActiveRef.current = false;
       setError('Camera access denied. Allow camera permissions and try again.');
       setMode('photo');
     }
   }, [detectWebcam]);
 
   const stopWebcam = useCallback(() => {
+    webcamActiveRef.current = false;
     cancelAnimationFrame(animFrameRef.current);
     streamRef.current?.getTracks().forEach(t => t.stop());
     streamRef.current = null;
@@ -311,6 +317,7 @@ export default function App() {
     setResult(null);
     setStatus('ready');
   }, []);
+
 
   const handleModeChange = useCallback((next) => {
     if (next === mode) return;
@@ -375,6 +382,24 @@ export default function App() {
     };
   }, []);
 
+  const captureFromWebcam = useCallback(() => {
+    const video = videoRef.current;
+    if (!video || !video.videoWidth) return;
+    const snap = document.createElement('canvas');
+    snap.width  = video.videoWidth;
+    snap.height = video.videoHeight;
+    const ctx = snap.getContext('2d');
+    ctx.translate(snap.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, 0, 0);
+    const dataUrl = snap.toDataURL('image/png');
+    stopWebcam();
+    setMode('photo');
+    setResult(null);
+    setImgSrc(null);
+    setTimeout(() => detect(dataUrl), 50);
+  }, [detect, stopWebcam]);
+
   const handleFile = useCallback((file) => {
     if (!file?.type.startsWith('image/')) return;
     const reader = new FileReader();
@@ -418,21 +443,28 @@ export default function App() {
 
           {/* ── WEBCAM MODE ── */}
           {mode === 'webcam' && (
-            <div className="canvas-wrap">
-              <div className="canvas-inner-tl" />
-              <div className="canvas-inner-br" />
-              {status === 'scanning' && <div className="scanning-line" />}
-              <div className="webcam-wrap">
-                <video ref={videoRef} className="webcam-video" autoPlay muted playsInline />
-                <canvas ref={overlayRef} className="webcam-overlay" />
-                {!camReady && (
-                  <div className="canvas-empty">
-                    <div className="spinner" />
-                    <div className="canvas-empty-text">Starting camera...</div>
-                  </div>
+            <>
+              <div className="canvas-wrap">
+                <div className="canvas-inner-tl" />
+                <div className="canvas-inner-br" />
+                {status === 'scanning' && <div className="scanning-line" />}
+                <div className="webcam-wrap">
+                  <video ref={videoRef} className="webcam-video" autoPlay muted playsInline />
+                  <canvas ref={overlayRef} className="webcam-overlay" />
+                  {!camReady && (
+                    <div className="canvas-empty">
+                      <div className="spinner" />
+                      <div className="canvas-empty-text">Starting camera...</div>
+                    </div>
+                  )}
+                </div>
+                {camReady && (
+                  <button className="capture-btn" onClick={captureFromWebcam} title="Capture frame and analyse">
+                    ◉ CAPTURE
+                  </button>
                 )}
               </div>
-            </div>
+            </>
           )}
 
           {/* ── PHOTO MODE ── */}
@@ -443,7 +475,12 @@ export default function App() {
                 <div className="canvas-inner-br" />
                 {scanning && <div className="scanning-line" />}
                 {imgSrc
-                  ? <canvas ref={canvasRef} className="canvas-el" />
+                  ? (
+                    <>
+                      <canvas ref={canvasRef} className="canvas-el" />
+                      <button className="clear-btn" onClick={() => { setImgSrc(null); setResult(null); setError(null); }} title="Clear image">✕</button>
+                    </>
+                  )
                   : (
                     <div className="canvas-empty">
                       <div className="canvas-empty-icon">◎</div>
