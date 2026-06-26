@@ -464,8 +464,109 @@
   margin-top: 4px;
 }
 
+/* ── mode toggle ── */
+.mode-toggle {
+  display: flex;
+  border: 1px solid rgba(0, 229, 255, 0.18);
+}
+
+.mode-btn {
+  background: transparent;
+  border: none;
+  color: rgba(0, 229, 255, 0.35);
+  font-family: 'Courier New', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mode-btn:first-child { border-right: 1px solid rgba(0, 229, 255, 0.18); }
+
+.mode-btn.active {
+  background: rgba(0, 229, 255, 0.1);
+  color: #00e5ff;
+}
+
+.mode-btn:hover:not(.active) { color: rgba(0, 229, 255, 0.6); }
+
+/* ── webcam ── */
+.webcam-wrap {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.webcam-video {
+  display: block;
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  transform: scaleX(-1); /* mirror */
+}
+
+.webcam-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: scaleX(-1);
+}
+
+/* ── head pose ── */
+.pose-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.pose-label {
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: rgba(0, 229, 255, 0.4);
+  width: 40px;
+  flex-shrink: 0;
+}
+
+.pose-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(0, 229, 255, 0.07);
+  position: relative;
+}
+
+.pose-center-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(0, 229, 255, 0.18);
+}
+
+.pose-fill {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: left 0.2s ease, width 0.2s ease;
+}
+
+.pose-val {
+  font-size: 9px;
+  font-family: 'Courier New', monospace;
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+  transition: color 0.2s;
+}
+
 @media (max-width: 768px) {
   .main { flex-direction: column; padding: 20px; }
   .readout-panel { width: 100%; }
-  .header { padding: 0 20px; }
+  .header { padding: 0 16px; gap: 12px; flex-wrap: wrap; height: auto; padding-top: 12px; padding-bottom: 12px; }
 }
